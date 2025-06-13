@@ -1,0 +1,33 @@
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+    networks:
+      - aws-local
+
+  rust-aws:
+    build: .
+    container_name: rust-api-aws
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
+      - DYNAMO_LOCAL
+      - AWS_DEFAULT_REGION
+      - AWS_COGNITO_USER_POOL_ID
+      - AWS_COGNITO_CLIENT_ID
+      - CONFIRMATION_CODE
+    depends_on:
+      - dynamodb-local
+    stdin_open: true  # <-- Permite entrada desde teclado
+    tty: true 
+    command: ["sh", "-c", "sleep 10 && ./target/release/axum-api-aws"]
+    networks:
+      - aws-local
+
+networks:
+  aws-local:
+    driver: bridge
