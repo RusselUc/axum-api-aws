@@ -1,4 +1,4 @@
-# Axum Auth API (Demo)
+# Axum Auth API (Demo) 🦀
 
 This is a backend API built with Rust using the [Axum](https://github.com/tokio-rs/axum) framework, integrating AWS services such as Cognito and DynamoDB.  
 The main goal of this project is to learn how to structure an API in Rust and test basic user authentication using AWS Cognito.
