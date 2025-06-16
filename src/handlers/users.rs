@@ -4,11 +4,6 @@ use axum::{extract::Json, extract::Query, http::StatusCode};
 use std::collections::HashMap;
 use uuid::Uuid;
 
-
-fn map_internal_error<E: std::fmt::Display>(err: E) -> (StatusCode, String) {
-    (StatusCode::INTERNAL_SERVER_ERROR, err.to_string())
-}
-
 pub async fn create_user(
     Json(payload): Json<CreateUser>,
 ) -> Result<Json<User>, (StatusCode, String)> {
